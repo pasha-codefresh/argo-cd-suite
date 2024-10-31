@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-deployed.slack: test_slack_plugin
+  name: my-app
+  namespace: argocd
+spec:
+  project: default  # Replace with your desired ArgoCD project
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps
+    targetRevision: HEAD  # Replace with the target revision (commit, tag, or branch)
+    path: guestbook
+  destination:
+    server: https://kubernetes.default.svc  # Replace with your Kubernetes cluster API URL
+    namespace: default
+

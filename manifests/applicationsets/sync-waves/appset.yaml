@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: example-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - wave: "1"
+            path: guestbook
+            namespace: golist
+            name: app1
+          - wave: "2"
+            path: guestbook
+            namespace: default
+            name: app2
+  template:
+    metadata:
+      name: "{{name}}"
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{wave}}"
+    spec:
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "{{namespace}}"
+      project: default
+      source:
+        repoURL: https://github.com/pasha-codefresh/argocd-example-apps
+        targetRevision: master
+        path: "{{path}}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true

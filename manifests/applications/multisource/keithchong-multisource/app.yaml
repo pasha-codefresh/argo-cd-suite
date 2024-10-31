@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ms
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: ''
+    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/keithchong/argocd-example-apps.git
+      path: helm-guestbook
+      targetRevision: HEAD
+      helm: {}
+    - repoURL: https://github.com/keithchong/values-files.git
+      targetRevision: HEAD
+      ref: values_test
+  project: default

@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: example-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - wave: "wave-1"
+            path: guestbook
+            namespace: golist
+            name: app1
+            revision: v3
+          - wave: "wave-2"
+            path: guestbook
+            namespace: kargo
+            name: app2
+            revision: v3
+  strategy:
+    type: RollingUpdate
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: rolloutWave
+              operator: In
+              values:
+                - wave-1
+          maxUpdate: 100%
+        - matchExpressions:
+            - key: rolloutWave
+              operator: In
+              values:
+                - wave-2
+          maxUpdate: 100%
+  template:
+    metadata:
+      name: "{{name}}"
+      namespace: argocd
+      labels:
+        rolloutWave: "{{wave}}"
+    spec:
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "{{namespace}}"
+      project: default
+      source:
+        repoURL: https://github.com/pasha-codefresh/argocd-example-apps
+        targetRevision: "{{revision}}"
+        path: "{{path}}"
