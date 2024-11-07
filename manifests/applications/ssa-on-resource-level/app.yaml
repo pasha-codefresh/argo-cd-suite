@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/pasha-codefresh/argo-cd-suite
-    path: ./manifests/applications/sso-on-resource-level/resources
+    path: ./manifests/applications/ssa-on-resource-level/resources
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
