@@ -4,7 +4,6 @@ metadata:
   annotations:
     notifications.argoproj.io/subscribe.on-deployed.slack: test_slack_plugin
   name: istio-rollouts
-  namespace: argocd
 spec:
   project: default  # Replace with your desired ArgoCD project
   source:
