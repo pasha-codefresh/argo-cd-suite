@@ -12,7 +12,7 @@ spec:
     path: ./manifests/applications/istio-rollouts/resources
   destination:
     server: https://kubernetes.default.svc  # Replace with your Kubernetes cluster API URL
-    namespace: istio
+    namespace: codefresh
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
