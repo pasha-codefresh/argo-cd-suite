@@ -3,6 +3,7 @@ kind: Rollout
 metadata:
   name: istio-rollout
 spec:
+  replicas: 5
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -14,7 +15,6 @@ spec:
       labels:
         app: istio-rollout
     spec:
-      replicas: 5
       containers:
         - name: istio-rollout
           image: argoproj/rollouts-demo:blue
