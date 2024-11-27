@@ -37,7 +37,7 @@ spec:
       analysis:
         startingStep: 1   # index of step list, of when to start this analysis
         templates:
-          - templateName: pass
+          - templateName: istio-success-rate
         args:             # arguments allow AnalysisTemplates to be re-used
           - name: service
             value: canary
