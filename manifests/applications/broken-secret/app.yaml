@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: incorrect-secret
+spec:
+  project: default  # Replace with your desired ArgoCD project
+  source:
+    repoURL: https://github.com/pasha-codefresh/argo-cd-suite
+    targetRevision: HEAD  # Replace with the target revision (commit, tag, or branch)
+    path: ./manifests/applications/broken-secret/resources
+  destination:
+    server: https://kubernetes.default.svc  # Replace with your Kubernetes cluster API URL
+    namespace: incorrect-secret
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
